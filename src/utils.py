@@ -1,6 +1,7 @@
 import json
-from src.Product import Product
-from src.Category import Category
+from src.product import Product
+from src.category import Category
+
 
 def load_json(file_path: str):
     with open(file_path, 'r', encoding='utf-8') as file:
