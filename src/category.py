@@ -5,11 +5,9 @@ class Category:
     def __init__(self, name: str, description: str, products: list):
         self.name = name
         self.description = description
-        self.__products = []  # приватый список
+        self.__products = products
         Category.category_count += 1
-
-        for product in products:
-            self.add_product(product)
+        Category.product_count += len(products)
 
     def add_product(self, product):
         self.__products.append(product)
@@ -17,12 +15,12 @@ class Category:
 
     @property
     def products(self):
-        return self.__products.copy()
+        return self.__products
 
     @property
-    def products(self):
-        result = []
-        for product in self.__products:
-            line = f"{product.name}, {int(product.price)} руб. Остаток: {product.quantity} шт."
-            result.append(line)
-        return "\n".join(result)
+    def product_details(self):
+
+        return "\n".join(
+            f"{p.name},{int(p.price)} руб. Остаток: {p.quantity} шт."
+            for p in self.__products
+        )
