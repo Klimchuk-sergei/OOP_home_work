@@ -79,3 +79,34 @@ def test_load_json_creates_categories_and_products():
     assert first_cat.description == first_raw["description"]
     assert all(isinstance(p, Product) for p in first_cat.products)
     assert [p.name for p in first_cat.products] == [prod["name"] for prod in first_raw["products"]]
+
+
+def test_product_price_getter_setter():
+    """Проверка геттера и сеттера для атрибута price с защитой от некорректной цены"""
+    p = Product("Тест", "Описание", 100.0, 1)
+    assert p.price == 100.0
+
+    p.price = 250.0
+    assert p.price == 250.0
+
+    p.price = 0  # Должно вывести сообщение и не изменить цену
+    assert p.price == 250.0
+
+    p.price = -50  # Также должно быть отклонено
+    assert p.price == 250.0
+
+
+def test_product_new_product():
+    """Проверка создания продукта через класс-метод new_product"""
+    data = {
+        "name": "Наушники",
+        "description": "Bluetooth, шумоподавление",
+        "price": 4000.0,
+        "quantity": 3
+    }
+    product = Product.new_product(data)
+    assert isinstance(product, Product)
+    assert product.name == "Наушники"
+    assert product.description == "Bluetooth, шумоподавление"
+    assert product.price == 4000.0
+    assert product.quantity == 3
