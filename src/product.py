@@ -39,3 +39,6 @@ class Product:
     def __add__(self, other):
         if isinstance(other, Product):
             return self.price * self.quantity + other.price * other.quantity
+
+class Smartphone(Product):
+    pass
