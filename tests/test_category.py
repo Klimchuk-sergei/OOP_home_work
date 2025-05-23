@@ -1,5 +1,6 @@
 import os
 import json
+import pytest
 
 from src.category import Category
 from src.product import Product
@@ -62,3 +63,20 @@ def test_load_json_creates_categories_and_products():
     assert first_cat.description == first_raw["description"]
     assert all(isinstance(p, Product) for p in first_cat.products)
     assert [p.name for p in first_cat.products] == [prod["name"] for prod in first_raw["products"]]
+
+def test_category_str():
+    p1 = Product("Товар1", "desc", 50.0, 4)
+    p2 = Product("Товар2", "desc", 60.0, 6)
+    cat = Category("Категория", "Описание", [p1, p2])
+    assert str(cat) == "Категория, количество продуктов: 10 шт."
+
+def test_add_valid_product():
+    cat = Category("Электроника", "Описание", [])
+    p = Product("Товар", "desc", 100.0, 2)
+    cat.add_product(p)
+    assert len(cat.products) == 1
+
+def test_add_invalid_product_raises():
+    cat = Category("Электроника", "Описание", [])
+    with pytest.raises(TypeError):
+        cat.add_product("непродукт")

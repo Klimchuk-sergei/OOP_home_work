@@ -1,6 +1,3 @@
-from pydoc import describe
-
-
 class Product:
     """Класс для описания товара"""
 
@@ -34,7 +31,7 @@ class Product:
         )
 
     def __str__(self):
-        return f"{self.name}, {int(self.price)} руб. Остаток: {self.quantity} шт."
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
 
     def __add__(self, other):
         if type(self) is not type(other):
