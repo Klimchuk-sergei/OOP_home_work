@@ -1,13 +1,25 @@
-class Product:
+from src.base_product import BaseProduct
+from src.mixin import CreatLoggerMixin
+
+
+class Product(CreatLoggerMixin, BaseProduct):
     """Класс для описания товара"""
 
+    # def __init__(self, name: str, description: str, price: float, quantity: int):
+    #     """Метод для инициализации экземпляра класса."""
+    #     """Задаем значения атрибутам экземпляра."""
+    #     self.name = name
+    #     self.description = description
+    #     self.__price = price
+    #     self.quantity = quantity
+
     def __init__(self, name: str, description: str, price: float, quantity: int):
-        """Метод для инициализации экземпляра класса."""
-        """Задаем значения атрибутам экземпляра."""
+        # Вызываем конструктор родительского класса (BaseProduct)
         self.name = name
         self.description = description
-        self.__price = price
+        self.price = price
         self.quantity = quantity
+        super().__init__(name, description, price, quantity)
 
     @property
     def price(self):
@@ -37,6 +49,7 @@ class Product:
         if type(self) is not type(other):
             raise TypeError("Нельзя складывать товары разных типов.")
         return self.price * self.quantity + other.price * other.quantity
+
 
 class Smartphone(Product):
     pass
