@@ -19,7 +19,10 @@ class Product(CreatLoggerMixin, BaseProduct):
         self.description = description
         self.price = price
         self.quantity = quantity
+        if quantity == 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
         super().__init__(name, description, price, quantity)
+
 
     @property
     def price(self):
